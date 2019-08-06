@@ -1,0 +1,8 @@
+*.lst
+*.o
+*.d
+*.mk
+*.rsp
+*.elf
+*.map
+makefile
