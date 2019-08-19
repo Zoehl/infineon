@@ -103,10 +103,7 @@ __attribute__((section("ETH_RAM"))) uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
 int main( void )
 {
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 0c0a8a90b8ec990f9bc6cd970d62973dd75b1963
 //	DAVE_STATUS_t status;
 //	status = DAVE_Init();
 //	if(status != DAVE_STATUS_SUCCESS)

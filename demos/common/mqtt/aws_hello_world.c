@@ -272,6 +272,7 @@ static void prvPublishNextMessage( BaseType_t xMessageNumber )
     /* Create the message that will be published, which is of the form "Hello World n"
      * where n is a monotonically increasing number. Note that snprintf appends
      * terminating null character to the cDataBuffer. */
+    /* Publishes pressure, temperature, address, coordinates, location and water level to the cloud database*/
     ( void ) snprintf( cDataBuffer, echoMAX_DATA_LENGTH, "{\"pressure\":\"%s\",\"temperature\": \"%s\",\"address\":\"%s\",\"coordinates\": \"%s\",\"locationId\": \"%s\",\"waterLevel\": \"%s\" }", pressureArr,temperatureArr,addressArr,coordinatesArr,locationArr,water_lvlArr); // , \"temperature\":\"%d\"}   ,(int) temp
 
     /* Setup the publish parameters. */
@@ -506,22 +507,17 @@ static void prvMQTTConnectAndPublishTask( void * pvParameters )
         xReturned = prvSubscribe();
     }
 
+    /* Self Calibration*/
     if( xReturned == pdPASS )
     {
-<<<<<<< HEAD
     	for (int i = 0; i != 1; i++)
     	{
     		get_ref_pressure();
     	}
-=======
-//    	for (int i = 0; i != 1; i++)
-//    	{
-//    		get_ref_pressure();
-//    	}
->>>>>>> 0c0a8a90b8ec990f9bc6cd970d62973dd75b1963
 
         /* MQTT client is now connected to a broker.  Publish a message
-         * every five seconds until a minute has elapsed. */
+         * every five seconds until a minute has elapsed.
+         * Number of times published has been  changed*/
         for( x = 0; x < 10000; x++ )
         {
             prvPublishNextMessage( x );
