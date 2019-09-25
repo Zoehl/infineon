@@ -43,7 +43,7 @@ static const char clientcredentialMQTT_BROKER_ENDPOINT[] = "a10g384koxdim3-ats.i
 * use pre-compile concatenation on the string. */
 //#define clientcredentialIOT_THING_NAME "arn:aws:iot:ap-southeast-1:065398228892:thing/XMC_4800_AWS1"
 //#define clientcredentialIOT_THING_NAME "Gary_XMC_4800"
-#define clientcredentialIOT_THING_NAME "XMC4800_TrustX_version2" //change this to configure the trust x version
+#define clientcredentialIOT_THING_NAME "XMC4800_TrustX_version4" //change this to configure the trust x version
 /*
  * Port number the MQTT broker is using.
  */
@@ -57,11 +57,11 @@ static const char clientcredentialMQTT_BROKER_ENDPOINT[] = "a10g384koxdim3-ats.i
 /*
  * Wi-Fi network to join.
  */
-#define clientcredentialWIFI_SSID       "vivo"
+#define clientcredentialWIFI_SSID       "Nushiro"
 /*
  * Password needed to join Wi-Fi network.
  */
-#define clientcredentialWIFI_PASSWORD   "charcoal"
+#define clientcredentialWIFI_PASSWORD   "woodywoody"
 
 /**
  * @brief Security type

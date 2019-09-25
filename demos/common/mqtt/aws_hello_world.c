@@ -66,7 +66,7 @@
 #include "sound_buzzer.h"
 #include "water_level.h"
 #include "global.h"
-
+//#include "global.c"
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
@@ -120,15 +120,17 @@
 #define echoDONT_BLOCK         ( ( TickType_t ) 0 )
 
 
+
 //user variables
  int ret;
- double press, temp, water_lvl;
+ double press = 0.0, temp = 0.0, water_lvl = 0.0;
  char pressureArr[10];
  char temperatureArr[10];
  char water_lvlArr[10];
  char addressArr[30] = "Singapore_Polytechnic";
  char coordinatesArr[15] = "1.3099,103.7775";
  char locationArr[5] = "001";
+
 
 /*-----------------------------------------------------------*/
 
@@ -260,7 +262,7 @@ static void prvPublishNextMessage( BaseType_t xMessageNumber )
     MQTTAgentReturnCode_t xReturned;
     char cDataBuffer[ echoMAX_DATA_LENGTH ];
     ret = dps310_hal_get_temp_press( &temp, &press);
-    water_lvl = water_level();
+    water_lvl = water_level(temp,press);
     gcvt(press,6,&pressureArr);
     gcvt(temp,4,&temperatureArr);
     gcvt(water_lvl,4,water_lvlArr);//gets water level reading
@@ -295,7 +297,7 @@ static void prvPublishNextMessage( BaseType_t xMessageNumber )
         //danger_level 40
         //if(water_lvl>danger_level)
         double water = water_lvl;
-        sound_buzzer(water);
+        //sound_buzzer(water);
 
     }
     else
@@ -510,9 +512,10 @@ static void prvMQTTConnectAndPublishTask( void * pvParameters )
     /* Self Calibration*/
     if( xReturned == pdPASS )
     {
-    	for (int i = 0; i != 1; i++)
-    	{
-    		get_ref_pressure();
+    	if (runonce == 0) {
+
+    		ref_pressure = get_ref_pressure();
+    		runonce = 1;
     	}
 
         /* MQTT client is now connected to a broker.  Publish a message
@@ -565,3 +568,4 @@ void vStartMQTTEchoDemo( void )
                           NULL );                              /* Not storing the task's handle. */
 }
 /*-----------------------------------------------------------*/
+
