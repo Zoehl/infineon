@@ -58,10 +58,12 @@ static const char clientcredentialMQTT_BROKER_ENDPOINT[] = "a10g384koxdim3-ats.i
  * Wi-Fi network to join.
  */
 #define clientcredentialWIFI_SSID       "Nushiro"
+//#define clientcredentialWIFI_SSID       "vivo"
 /*
  * Password needed to join Wi-Fi network.
  */
 #define clientcredentialWIFI_PASSWORD   "woodywoody"
+//#define clientcredentialWIFI_PASSWORD   "charcoal"
 
 /**
  * @brief Security type

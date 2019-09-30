@@ -10,7 +10,8 @@
 
 
 
-void sound_buzzer(double water) {
+void sound_buzzer(double water)
+{
 	const TickType_t xFiveSeconds = pdMS_TO_TICKS( 5000UL );
 	const TickType_t xThreeSeconds = pdMS_TO_TICKS( 3000UL );
 	const TickType_t xOneHalfSecond = pdMS_TO_TICKS( 1500UL );

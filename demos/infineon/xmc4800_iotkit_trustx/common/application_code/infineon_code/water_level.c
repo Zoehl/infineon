@@ -16,13 +16,18 @@
  * Principle used is Boyle's Law, cancel volume from both sides
  * Pressure 1 is value fetched from pressure sensor
  * Pressure 2 = density * gravity * height */
-double water_level (double temp, double air_prs)
+double water_level (double temp, double air_prs, double ref_pressure)
 {
 	//int ret;
 	//double temp, air_prs, water_level = 0;
 	double water_level = 0;
 	//ret = dps310_hal_get_temp_press(&temp, &air_prs);
 	double pressure_diff = 0.0;
+	if (air_prs >= 0.0) {
+		last_good_pressure = air_prs;
+	} else {
+		air_prs = last_good_pressure;
+	}
 	pressure_diff = air_prs - ref_pressure;
 	if (pressure_diff < 0) {
 		ref_pressure = air_prs;

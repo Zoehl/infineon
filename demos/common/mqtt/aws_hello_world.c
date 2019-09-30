@@ -262,9 +262,9 @@ static void prvPublishNextMessage( BaseType_t xMessageNumber )
     MQTTAgentReturnCode_t xReturned;
     char cDataBuffer[ echoMAX_DATA_LENGTH ];
     ret = dps310_hal_get_temp_press( &temp, &press);
-    water_lvl = water_level(temp,press);
-    gcvt(press,6,&pressureArr);
-    gcvt(temp,4,&temperatureArr);
+    water_lvl = water_level(temp,press,ref_pressure);
+    gcvt(press,6,pressureArr);
+    gcvt(temp,4,temperatureArr);
     gcvt(water_lvl,4,water_lvlArr);//gets water level reading
 
     /* Check this function is not being called before the MQTT client object has
@@ -295,9 +295,9 @@ static void prvPublishNextMessage( BaseType_t xMessageNumber )
         configPRINTF( ( "Echo successfully published '%s'\r\n", cDataBuffer ) );
         //call the sound buzzzer in here
         //danger_level 40
-        //if(water_lvl>danger_level)
+        //(water_lvl>danger_level)
         double water = water_lvl;
-        //sound_buzzer(water);
+        sound_buzzer(water);
 
     }
     else

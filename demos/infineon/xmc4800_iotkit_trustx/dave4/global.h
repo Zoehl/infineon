@@ -10,6 +10,8 @@
 
 static double ref_pressure = 0;
 static int runonce = 0;
+static double last_good_pressure = 0.0;
+
 double get_ref_pressure (void);
 
 #endif /* GLOBAL_H_ */

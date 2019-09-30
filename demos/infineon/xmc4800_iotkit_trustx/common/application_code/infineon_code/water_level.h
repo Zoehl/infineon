@@ -8,7 +8,7 @@
 #ifndef APPLICATION_CODE_INFINEON_CODE_WATER_LEVEL_H_
 #define APPLICATION_CODE_INFINEON_CODE_WATER_LEVEL_H_
 
-double water_level (double temp, double air_prs);
+double water_level (double temp, double air_prs, double ref_pressure);
 
 
 
