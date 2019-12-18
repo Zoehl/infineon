@@ -33,6 +33,9 @@ double water_level (double temp, double air_prs, double ref_pressure)
 		ref_pressure = air_prs;
 	}
 	water_level = (((air_prs - ref_pressure)/ (density * gravity)) * 100)  + offset_distance;
+	if (water_level <= 5) {
+		water_level = water_level - offset_distance;
+	}
 	if (water_level < 0)
 		water_level = -water_level;
 	return water_level;

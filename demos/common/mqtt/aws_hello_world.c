@@ -127,9 +127,9 @@
  char pressureArr[10];
  char temperatureArr[10];
  char water_lvlArr[10];
- char addressArr[30] = "Singapore_Polytechnic";
- char coordinatesArr[15] = "1.3099,103.7775";
- char locationArr[5] = "001";
+ char addressArr[30] = "Infineon_Technologies";//change the address and loation id here man, e.g. "Singapore Polytechnic"
+ char coordinatesArr[15] = "1.3246,103.8733"; //change coordinates to fit location
+ char locationArr[5] = "005"; //change the location id to fit the position of the app eg: "001" for SP
 
 
 /*-----------------------------------------------------------*/
