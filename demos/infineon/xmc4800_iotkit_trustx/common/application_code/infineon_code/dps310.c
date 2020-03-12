@@ -314,12 +314,8 @@ int dps310_get_processed_data (struct dps310_state *drv_state,
                       temp_scaled * press_scaled * ( drv_state->calib_coeffs.C11 +
                                                       press_scaled * drv_state->calib_coeffs.C21 );
 
-        //press_final = press_final * 0.01f;	//to convert it into mBar
-
         *temperature = temp_final;
         *pressure    = press_final;  //press_final;
-
-//        printf("datad %lf %lf\r\n",temp_final, press_final);
 
         return 0;
 }

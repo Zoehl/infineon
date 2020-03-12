@@ -18,24 +18,37 @@
  * Pressure 2 = density * gravity * height */
 double water_level (double temp, double air_prs, double ref_pressure)
 {
-	//int ret;
-	//double temp, air_prs, water_level = 0;
 	double water_level = 0;
-	//ret = dps310_hal_get_temp_press(&temp, &air_prs);
 	double pressure_diff = 0.0;
+
+	/*
+	 * Safety feature to make sure the readings are never negative
+	 */
 	if (air_prs >= 0.0) {
 		last_good_pressure = air_prs;
 	} else {
 		air_prs = last_good_pressure;
 	}
+
+	/*
+	 * Updates the ref_pressure to air_prs if air_prs is lower than ref_pressure
+	 */
 	pressure_diff = air_prs - ref_pressure;
 	if (pressure_diff < 0) {
 		ref_pressure = air_prs;
 	}
+
+	/*
+	 * Boyle's Law
+	 */
 	water_level = (((air_prs - ref_pressure)/ (density * gravity)) * 100)  + offset_distance;
 	if (water_level <= 5) {
 		water_level = water_level - offset_distance;
 	}
+
+	/*
+	* Safety feature to make sure the readings are never negative
+	*/
 	if (water_level < 0)
 		water_level = -water_level;
 	return water_level;

@@ -261,11 +261,12 @@ static void prvPublishNextMessage( BaseType_t xMessageNumber )
     MQTTAgentPublishParams_t xPublishParameters;
     MQTTAgentReturnCode_t xReturned;
     char cDataBuffer[ echoMAX_DATA_LENGTH ];
-    ret = dps310_hal_get_temp_press( &temp, &press);
-    water_lvl = water_level(temp,press,ref_pressure);
-    gcvt(press,6,pressureArr);
-    gcvt(temp,4,temperatureArr);
-    gcvt(water_lvl,4,water_lvlArr);//gets water level reading
+
+    ret = dps310_hal_get_temp_press( &temp, &press);	//get pressure and temperature reading
+    water_lvl = water_level(temp,press,ref_pressure);	//get water level
+    gcvt(press,6,pressureArr);							//converts to 6 digits
+    gcvt(temp,4,temperatureArr);						//converts to 4 digits
+    gcvt(water_lvl,4,water_lvlArr);
 
     /* Check this function is not being called before the MQTT client object has
      * been created. */
@@ -275,7 +276,7 @@ static void prvPublishNextMessage( BaseType_t xMessageNumber )
      * where n is a monotonically increasing number. Note that snprintf appends
      * terminating null character to the cDataBuffer. */
     /* Publishes pressure, temperature, address, coordinates, location and water level to the cloud database*/
-    ( void ) snprintf( cDataBuffer, echoMAX_DATA_LENGTH, "{\"pressure\":\"%s\",\"temperature\": \"%s\",\"address\":\"%s\",\"coordinates\": \"%s\",\"locationId\": \"%s\",\"waterLevel\": \"%s\" }", pressureArr,temperatureArr,addressArr,coordinatesArr,locationArr,water_lvlArr); // , \"temperature\":\"%d\"}   ,(int) temp
+    ( void ) snprintf( cDataBuffer, echoMAX_DATA_LENGTH, "{\"pressure\":\"%s\",\"temperature\": \"%s\",\"address\":\"%s\",\"coordinates\": \"%s\",\"locationId\": \"%s\",\"waterLevel\": \"%s\" }", pressureArr,temperatureArr,addressArr,coordinatesArr,locationArr,water_lvlArr);
 
     /* Setup the publish parameters. */
     memset( &( xPublishParameters ), 0x00, sizeof( xPublishParameters ) );
@@ -293,9 +294,8 @@ static void prvPublishNextMessage( BaseType_t xMessageNumber )
     if( xReturned == eMQTTAgentSuccess )
     {
         configPRINTF( ( "Echo successfully published '%s'\r\n", cDataBuffer ) );
-        //call the sound buzzzer in here
-        //danger_level 40
-        //(water_lvl>danger_level)
+
+        /*sound buzzer after checking water level */
         double water = water_lvl;
         sound_buzzer(water);
 
@@ -509,7 +509,10 @@ static void prvMQTTConnectAndPublishTask( void * pvParameters )
         xReturned = prvSubscribe();
     }
 
-    /* Self Calibration*/
+    /*
+     * Self Calibration
+     * Set ref_pressure
+     */
     if( xReturned == pdPASS )
     {
     	if (runonce == 0) {
@@ -521,12 +524,9 @@ static void prvMQTTConnectAndPublishTask( void * pvParameters )
         /* MQTT client is now connected to a broker.  Publish a message
          * every five seconds until a minute has elapsed.
          * Number of times published has been  changed*/
-        for( x = 0; x < 10000; x++ )
+        for( x = 0; x < 100; x++ )
         {
-            prvPublishNextMessage( x );
-
-            //if (press > danger_level)
-            	//sound_buzzer();
+            prvPublishNextMessage(x);
 
             /* Five seconds delay between publishes. */
             vTaskDelay( xFiveSeconds );

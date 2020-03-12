@@ -35,37 +35,32 @@
 /*
  * MQTT Broker endpoint.
  */
-//static const char clientcredentialMQTT_BROKER_ENDPOINT[] = "a26ch0cchp0v7h.iot.us-west-2.amazonaws.com";
-static const char clientcredentialMQTT_BROKER_ENDPOINT[] = "a10g384koxdim3-ats.iot.us-east-1.amazonaws.com";
+static const char clientcredentialMQTT_BROKER_ENDPOINT[] = "";
 
 
 /* Use of a "define" and not a "static const" here to be able to
 * use pre-compile concatenation on the string. */
-//#define clientcredentialIOT_THING_NAME "arn:aws:iot:ap-southeast-1:065398228892:thing/XMC_4800_AWS1"
-//#define clientcredentialIOT_THING_NAME "Gary_XMC_4800"
-#define clientcredentialIOT_THING_NAME "XMC4800_TrustX_version5" //change this to configure the trust x version
+#define clientcredentialIOT_THING_NAME "" //change this to configure the trust x version
+
 /*
  * Port number the MQTT broker is using.
  */
-#define clientcredentialMQTT_BROKER_PORT 8883
+#define clientcredentialMQTT_BROKER_PORT //add port number
 
 /*
  * Port number the Green Grass Discovery use for JSON retrieval from cloud is using.
  */
-#define clientcredentialGREENGRASS_DISCOVERY_PORT 8443
+#define clientcredentialGREENGRASS_DISCOVERY_PORT //add port number
 
 /*
- * Wi-Fi network to join.
+ * Wi-Fi network or mobile hotspot to join.
  */
-#define clientcredentialWIFI_SSID       "pass1234"
-//#define clientcredentialWIFI_SSID       "Nushiro"
-//#define clientcredentialWIFI_SSID       "vivo"
+#define clientcredentialWIFI_SSID       ""  //set Wi-Fi network name
+
 /*
- * Password needed to join Wi-Fi network.
+ * Password needed to join Wi-Fi network or mobile hotspot.
  */
-#define clientcredentialWIFI_PASSWORD   "pass1234"
-//#define clientcredentialWIFI_PASSWORD   "woodywoody"
-//#define clientcredentialWIFI_PASSWORD   "charcoal"
+#define clientcredentialWIFI_PASSWORD   ""  //set Wi-Fi network password
 
 /**
  * @brief Security type
