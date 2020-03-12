@@ -1,6 +1,0 @@
-#ifndef APPLICATION_CODE_INFINEON_CODE_SOUND_BUZZER_H_
-#define APPLICATION_CODE_INFINEON_CODE_SOUND_BUZZER_H_
-
-void sound_buzzer (double water);
-
-#endif
